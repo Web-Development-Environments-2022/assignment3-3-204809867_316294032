@@ -181,29 +181,35 @@ export default {
     },
     async Register() {
       try {
+        console.log(this.$root.store.server_domain);
         const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Register",
-          this.$root.store.server_domain + "/Register",
+          // "https://test-for-3-2.herokuapp.com/user/Register", 
+          //this.$root.store.server_domain + "/Register",
+          "http://localhost:3000/Register",
 
-          {
+          {//DAR
             username: this.form.username,
-            password: this.form.password
+            //firstname: this.form.firstname,
+            //lastname: this.form.lastname,
+            country: this.form.country,
+            password: this.form.password,
+            //email: this.form.email
           }
         );
         this.$router.push("/login");
-        // console.log(response);
+        console.log(response);
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
     },
     onRegister() {
-      // console.log("register method called");
+      //console.log("register method called");
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      // console.log("register method go");
+      //console.log("register method go");
       this.Register();
     },
     onReset() {
