@@ -102,4 +102,5 @@ new Vue({
     },
   },
   render: (h) => h(App),
-}).$mount("#app");
+}).$mount("#app")
+;
