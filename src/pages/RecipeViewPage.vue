@@ -52,17 +52,22 @@ export default {
     try {
       let response;
       // response = this.$route.params.response;
-
+      //console.log(this.$route.params.recipeId)
+      
       try {
+        let num = this.$route.params.recipeId;
+        let text = num.toString();
         response = await this.axios.get(
           // "https://test-for-3-2.herokuapp.com/recipes/info",
-          this.$root.store.server_domain + "/recipes/info",
-          {
-            params: { id: this.$route.params.recipeId }
-          }
+          // this.$root.store.server_domain + "/recipes/info",
+          "http://localhost:3000/recipes/" + text
+          // +  int(this.$route.params.recipeId)
+          // {
+          //   params: { id: this.$route.params.recipeId }
+          // }
         );
-
-        // console.log("response.status", response.status);
+        console.log(response.data)
+        console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
         console.log("error.response.status", error.response.status);
@@ -71,28 +76,29 @@ export default {
       }
 
       let {
-        analyzedInstructions,
+        // analyzedInstructions,
         instructions,
-        extendedIngredients,
-        aggregateLikes,
+        ingredients,
+        popularity,
         readyInMinutes,
         image,
         title
-      } = response.data.recipe;
+      } = response.data;
 
-      let _instructions = analyzedInstructions
-        .map((fstep) => {
-          fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-          return fstep.steps;
-        })
-        .reduce((a, b) => [...a, ...b], []);
+      // let _instructions = analyzedInstructions
+      //   .map((fstep) => {
+      //     fstep.steps[0].step = fstep.name + fstep.steps[0].step;
+      //     return fstep.steps;
+      //   })
+      //   .reduce((a, b) => [...a, ...b], []);
 
       let _recipe = {
         instructions,
-        _instructions,
-        analyzedInstructions,
-        extendedIngredients,
-        aggregateLikes,
+        ingredients,
+        // _instructions,
+        // analyzedInstructions,
+        // extendedIngredients,
+        popularity,
         readyInMinutes,
         image,
         title
