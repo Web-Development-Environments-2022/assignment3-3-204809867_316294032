@@ -96,6 +96,7 @@
         variant="primary"
         style="width:250px;"
         class="ml-5 w-75"
+        onclick=""
         >Register</b-button
       >
       <div class="mt-2">
@@ -183,11 +184,10 @@ export default {
       try {
         console.log(this.$root.store.server_domain);
         const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Register", 
-          //this.$root.store.server_domain + "/Register",
+          // "https://test-for-3-2.herokuapp.com/user/Register",
           "http://localhost:3000/Register",
-
-          {//DAR
+           //this.$root.store.server_domain + "/Register",
+          {
             username: this.form.username,
             //firstname: this.form.firstname,
             //lastname: this.form.lastname,
@@ -209,7 +209,7 @@ export default {
       if (this.$v.form.$anyError) {
         return;
       }
-      //console.log("register method go");
+      console.log("register method go");
       this.Register();
     },
     onReset() {

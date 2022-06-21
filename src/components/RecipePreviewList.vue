@@ -20,7 +20,7 @@ export default {
     RecipePreview
   },
   props: {
-    title: {
+    title: {  
       type: String,
       required: true
     }
@@ -39,14 +39,15 @@ export default {
         const response = await this.axios.get(
           //this.$root.store.server_domain + "/recipes/random",
           // "https://test-for-3-2.herokuapp.com/recipes/random"
-          "http://localhost:3000/recipes/random/3"
+          "http://localhost:3000/recipes/random/3",
         );
 
         // console.log(response);
         const recipes = response.data;
+        // console.log(recipes);
         this.recipes = [];
         this.recipes.push(...recipes);
-        // console.log(this.recipes);
+        
       } catch (error) {
         console.log(error);
       }
