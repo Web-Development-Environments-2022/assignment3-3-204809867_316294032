@@ -12,7 +12,8 @@
       </div>
       <ul class="recipe-overview">
         <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
+        <li>{{ recipe.popularity }} likes</li>
+        <!-- this in the main page! -->
       </ul>
     </div>
   </router-link>

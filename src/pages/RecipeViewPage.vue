@@ -10,7 +10,8 @@
           <div class="wrapped">
             <div class="mb-3">
               <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Likes: {{ recipe.aggregateLikes }} likes</div>
+              <div>Likes: {{ recipe.popularity }} likes</div>
+              <!-- this in the page of recipe -->
             </div>
             Ingredients:
             <ul>
@@ -76,7 +77,7 @@ export default {
       }
 
       let {
-        // analyzedInstructions,
+        analyzedInstructions,
         instructions,
         ingredients,
         popularity,
@@ -85,19 +86,19 @@ export default {
         title
       } = response.data;
 
-      // let _instructions = analyzedInstructions
-      //   .map((fstep) => {
-      //     fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-      //     return fstep.steps;
-      //   })
-      //   .reduce((a, b) => [...a, ...b], []);
+      let _instructions = analyzedInstructions
+        .map((fstep) => {
+          fstep.steps[0].step = fstep.name + fstep.steps[0].step;
+          return fstep.steps;
+        })
+        .reduce((a, b) => [...a, ...b], []);
 
       let _recipe = {
         instructions,
         ingredients,
-        // _instructions,
-        // analyzedInstructions,
-        // extendedIngredients,
+        _instructions,
+        analyzedInstructions,
+        //extendedIngredients, //need to checl if we delete some part that we get in start
         popularity,
         readyInMinutes,
         image,

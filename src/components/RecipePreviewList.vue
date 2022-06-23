@@ -1,6 +1,7 @@
 <template>
   <b-container>
     <h3>
+      <!-- the title is 'Explore this recipes:' get parameters from his father MainPage-->
       {{ title }}:
       <slot></slot>
     </h3>
