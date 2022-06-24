@@ -97,7 +97,7 @@ export default {
         ingredients,
         _instructions,
         analyzedInstructions,
-        extendedIngredients, //need to check if we delete some part that we get in start
+        extendedIngredients, //need to check if we delete some part that we get in start hi
         popularity,
         readyInMinutes,
         image,
