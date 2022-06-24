@@ -18,7 +18,7 @@
         <router-link :to="{ name: 'login' }">Login</router-link>|
       </span>
       <span v-else>
-        <!-- username connect this show his name -->
+        <!-- username connect this part show his name 'Dar273'-->
         {{ $root.store.username }}: <button @click="Logout">Logout</button>|
       </span>
     </div>

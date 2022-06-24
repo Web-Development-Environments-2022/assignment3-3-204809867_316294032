@@ -15,10 +15,8 @@
             </div>
             Ingredients:
             <ul>
-              <li
-                v-for="(r, index) in recipe.extendedIngredients"
-                :key="index + '_' + r.id"
-              >
+           
+              <li v-for="(r, index) in recipe.extendedIngredients" :key="index + '_' + r.id">
                 {{ r.original }}
               </li>
             </ul>
@@ -54,7 +52,7 @@ export default {
       let response;
       // response = this.$route.params.response;
       //console.log(this.$route.params.recipeId)
-      
+
       try {
         let num = this.$route.params.recipeId;
         let text = num.toString();
@@ -80,6 +78,7 @@ export default {
         analyzedInstructions,
         instructions,
         ingredients,
+        extendedIngredients,
         popularity,
         readyInMinutes,
         image,
@@ -98,7 +97,7 @@ export default {
         ingredients,
         _instructions,
         analyzedInstructions,
-        //extendedIngredients, //need to checl if we delete some part that we get in start
+        extendedIngredients, //need to check if we delete some part that we get in start
         popularity,
         readyInMinutes,
         image,
@@ -117,15 +116,18 @@ export default {
 .wrapper {
   display: flex;
 }
+
 .wrapped {
   width: 50%;
 }
+
 .center {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
 }
+
 /* .recipe-header{
 
 } */

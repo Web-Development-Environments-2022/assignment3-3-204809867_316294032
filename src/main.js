@@ -2,6 +2,8 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
+//import VueCookies from "vue-cookies";
+//axios.defaults.baseURL =  "http://localhost:3000";
 
 import routes from "./routes";
 import VueRouter from "vue-router";
@@ -81,13 +83,14 @@ const shared_data = {
   },
 };
 console.log(shared_data);
-// Vue.prototype.$root.store = shared_data;
+//Vue.prototype.$root.store = shared_data;
 
 new Vue({
   router,
   data() {
     return {
       store: shared_data,
+      loggedIn: false,//check
     };
   },
   methods: {
