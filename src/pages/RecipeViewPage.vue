@@ -3,6 +3,7 @@
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.title }}</h1>
+        <iconBar class="iconbar" :isFavorite="isFavorite" :isLastseen="isLastseen" :isVegetarian="isVegetarian" :isVegan="isVegan" :isGlutenfree="isGlutenfree" ></iconBar>
         <img :src="recipe.image" class="center" />
       </div>
       <div class="recipe-body">
@@ -29,6 +30,12 @@
               </li>
             </ol>
           </div>
+          <!-- <div v-if="flagiflagInLastSeen">
+            <h8>This recipee is in the last seen list !!</h8>
+          </div>
+          <div v-if="flagiflagInFavorite">
+            <h8>This recipee is in the favorite list !!</h8>
+          </div> -->
         </div>
       </div>
       <!-- <pre>
@@ -41,77 +48,90 @@
 </template>
 
 <script>
+import iconBar from '../components/iconBar.vue';
 export default {
-  data() {
-    return {
-      recipe: null
-    };
-  },
-  async created() {
-    try {
-      let response;
-      // response = this.$route.params.response;
-      //console.log(this.$route.params.recipeId)
-
-      try {
-        let num = this.$route.params.recipeId;
-        let text = num.toString();
-        response = await this.axios.get(
-          // "https://test-for-3-2.herokuapp.com/recipes/info",
-          // this.$root.store.server_domain + "/recipes/info",
-          "http://localhost:3000/recipes/" + text
-          // +  int(this.$route.params.recipeId)
-          // {
-          //   params: { id: this.$route.params.recipeId }
-          // }
-        );
-        console.log(response.data)
-        console.log("response.status", response.status);
-        if (response.status !== 200) this.$router.replace("/NotFound");
-      } catch (error) {
-        console.log("error.response.status", error.response.status);
-        this.$router.replace("/NotFound");
-        return;
-      }
-
-      let {
-        analyzedInstructions,
-        instructions,
-        ingredients,
-        extendedIngredients,
-        popularity,
-        readyInMinutes,
-        image,
-        title
-      } = response.data;
-
-      let _instructions = analyzedInstructions
-        .map((fstep) => {
-          fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-          return fstep.steps;
-        })
-        .reduce((a, b) => [...a, ...b], []);
-
-      let _recipe = {
-        instructions,
-        ingredients,
-        _instructions,
-        analyzedInstructions,
-        extendedIngredients, //need to check if we delete some part that we get in start hi
-        popularity,
-        readyInMinutes,
-        image,
-        title
-      };
-
-      this.recipe = _recipe;
-    } catch (error) {
-      console.log(error);
-    }
-  }
+    data() {
+        return {
+            recipe: null,
+            isFavorite:false,
+            isLastseen:false,
+            isVegan:false,
+            isVegetarian:false,
+            isGlutenfree:false
+        };
+    },
+    async created() {
+        try {
+            let response;
+            // response = this.$route.params.response;
+            //console.log(this.$route.params.recipeId)
+            try {
+                let num = this.$route.params.recipeId;
+                let text = num.toString();
+                response = await this.axios.get(this.$root.store.server_domain + "/recipes/" + text, { withCredentials: true, credentials: "include" }
+                //"http://localhost:3000/recipes/" + text,{withCredentials: true, credentials: 'include'}
+                );
+                if (response.status !== 200)
+                    this.$router.replace("/NotFound");
+            }
+            catch (error) {
+                console.log("error.response.status", error.response.status);
+                this.$router.replace("/NotFound");
+                return;
+            }
+            let { analyzedInstructions, instructions, ingredients, vegan, vegetarian, glutenFree, extendedIngredients, popularity, readyInMinutes, image, title, flagInFavorite, flagInLastSeen } = response.data;
+            console.log(response.data);
+            let _instructions = analyzedInstructions
+                .map((fstep) => {
+                fstep.steps[0].step = fstep.name + fstep.steps[0].step;
+                return fstep.steps;
+            })
+                .reduce((a, b) => [...a, ...b], []);
+            let _recipe = {
+                instructions,
+                ingredients,
+                vegan,
+                vegetarian,
+                glutenFree,
+                _instructions,
+                analyzedInstructions,
+                extendedIngredients,
+                popularity,
+                readyInMinutes,
+                image,
+                title,
+                flagInFavorite,
+                flagInLastSeen
+            };
+            console.log(_recipe);
+            this.recipe = _recipe;
+            this.isFavorite = _recipe.flagInFavorite;
+            this.isLastseen = _recipe.flagInLastSeen;
+            this.isVegan = _recipe.vegan;
+            this.isVegetarian = _recipe.vegetarian;
+            this.isGlutenfree = _recipe.glutenFree;
+            //update the last seen recipe
+            if (this.$root.store.username) {
+                try {
+                    //console.log("IM IN THE IF");
+                    const response = await this.axios.post(this.$root.store.server_domain + "/users/lastSeenRecipe", {
+                        recipeId: this.$route.params.recipeId
+                    }, { withCredentials: true, credentials: "include" });
+                    //console.log("IM IN THE IF AFTER THE RESPONSE");
+                    //console.log(response);
+                }
+                catch (err) {
+                    console.log("error.response.status", error.response.status);
+                }
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    },
+    components: { iconBar }
 };
 </script>
-
 <style scoped>
 .wrapper {
   display: flex;

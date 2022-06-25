@@ -15,6 +15,12 @@
         <li>{{ recipe.popularity }} likes</li>
         <!-- this in the main page! -->
       </ul>
+      <!-- <div v-if="recipe.flagInLastSeen">
+        <h8>This recipee is in the last seen list !!</h8>
+      </div>
+      <div v-if="recipe.flagInFavorite">
+        <h8>This recipee is in the favorite list !!</h8>
+      </div> -->
     </div>
   </router-link>
 </template>
