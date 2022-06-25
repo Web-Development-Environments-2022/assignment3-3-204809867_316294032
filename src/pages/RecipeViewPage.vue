@@ -50,8 +50,8 @@ export default {
   async created() {
     try {
       let response;
-      // response = this.$route.params.response;
-      //console.log(this.$route.params.recipeId)
+      response = this.$route.params.response;
+      console.log(this.$route.params.recipeId);
 
       try {
         let num = this.$route.params.recipeId;
