@@ -28,7 +28,10 @@ export default {
     results:{
         type: Array,
         required: true
-
+    },
+    keyID:{
+      type:Number,
+      required: false
     }
   },
   data() {
@@ -38,6 +41,11 @@ export default {
   },
   mounted() {
     this.showRecipesResults();
+  },
+  watch:{
+    keyID: function(){
+      this.showRecipesResults()
+    }
   },
   methods: {
     async showRecipesResults() {
