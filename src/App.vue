@@ -3,6 +3,8 @@
     <div id="nav">
       <router-link :to="{ name: 'main' }">Main</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
+      <router-link :to="{ name: 'favorite' }">Favorite</router-link>|
+      <router-link :to="{ name: 'personal' }">Personal</router-link>|
       <router-link :to="{ name: 'about' }">About</router-link>|
       <!--
          <b-nav-item-dropdown text="Personal" left>

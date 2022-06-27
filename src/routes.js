@@ -28,9 +28,24 @@ const routes = [
     component: () => import("./pages/AboutPage"),
   },
   {
+    path: "/favorite",
+    name: "favorite",
+    component: () => import("./pages/FavoritePage"),
+  },
+  {
+    path: "/personal",
+    name: "personal",
+    component: () => import("./pages/PersonalPage"),
+  },
+  {
     path: "/recipe/:recipeId",
     name: "recipe",
     component: () => import("./pages/RecipeViewPage"),
+  },
+  {
+    path: "/idorecipepersonal/:recipeId",
+    name: "idorecipepersonal",
+    component: () => import("./pages/RecipeViewPagePersonal"),
   },
   {
     path: "*",
