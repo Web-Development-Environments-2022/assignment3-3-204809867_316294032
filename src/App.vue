@@ -1,46 +1,47 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link :to="{ name: 'main' }">Main</router-link>|
       <router-link :to="{ name: 'search' }">Search</router-link>|
       <router-link :to="{ name: 'favorite' }">Favorite</router-link>|
       <router-link :to="{ name: 'personal' }">Personal</router-link>|
       <router-link :to="{ name: 'about' }">About</router-link>|
-      <!--
-         <b-nav-item-dropdown text="Personal" left>
-        <b-dropdown-item href="#">my recipes</b-dropdown-item>
-        <b-dropdown-item href="#">traditional</b-dropdown-item>
-        <b-dropdown-item href="#">Favorites</b-dropdown-item>
-      </b-nav-item-dropdown> -->
-      
-      <!-- {{ !$root.store.username }} this is true when your guest-->
       <span v-if="!$root.store.username">
         hello guest:
         <router-link :to="{ name: 'register' }">Register</router-link>|
         <router-link :to="{ name: 'login' }">Login</router-link>|
       </span>
       <span v-else>
-        <!-- username connect this part show his name 'Dar273'-->
         {{ $root.store.username }}: <button @click="Logout">Logout</button>|
+        <b-button v-b-modal.mymodal>create recipe</b-button>
+        <b-modal modal-class="my-class" id="mymodal" ref="modal" title="create recipe" size="xl">this is a test</b-modal>
       </span>
-    </div>
+    </div> -->
+
+    <Navigation></Navigation>
     <router-view />
   </div>
 </template>
 
 <script>
+import Navigation from "./components/Navigation.vue";
 export default {
-  name: "App",
-  methods: {
-    Logout() {
-      this.$root.store.logout();
-      this.$root.toast("Logout", "User logged out successfully", "success");
-
-      this.$router.push("/").catch(() => {
-        this.$forceUpdate();
-      });
-    }
-  }
+    name: "App",
+    methods: {
+        Logout() {
+            this.$root.store.logout();
+            this.$root.toast("Logout", "User logged out successfully", "success");
+            this.$router.push("/").catch(() => {
+                this.$forceUpdate();
+            });
+        },
+        CreateRecipe() {
+            console.log("inside the create recipe");
+            this.$root.store.flagCreateRecipe = true;
+            console.log(this.$root.store.flagCreateRecipe);
+        }
+    },
+    components: { Navigation }
 };
 </script>
 
