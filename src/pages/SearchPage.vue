@@ -5,6 +5,14 @@
       <b-form-group id="input-group-Username" label-cols-sm="3" label="Search:" label-for="Search">
         <b-form-input id="Search" v-model="$v.form.searchQuery.$model" type="text" :state="validateState('searchQuery')"
           placeholder="Search recipes..."></b-form-input>
+         <b-dropdown class="my-class" text="Dropdown">
+       <b-dropdown-item>Item 1</b-dropdown-item>
+       <b-dropdown-item-button>Item 2</b-dropdown-item-button>
+       <b-dropdown-item-button>Item 3</b-dropdown-item-button>
+       <b-dropdown-item-button>Item 4</b-dropdown-item-button>
+       <b-dropdown-item-button>Item 5</b-dropdown-item-button>
+    </b-dropdown>
+
         <b-form-invalid-feedback>
           Search query is requested.
         </b-form-invalid-feedback>
@@ -20,15 +28,14 @@
       <pre class="m-0">{{ form }}</pre>
     </b-card> -->
 
-    <!-- <span v-if= "results.length != 0">
-      go to SearchResults component:
-    </span>
-    <span v-else>
-     username connect this part show his name 'Dar273'
-      {{ $root.store.username }}: <button @click="Logout">Logout</button>|
-    </span> -->
     <div v-if="flag">
-      <SearchResults title="Results" :results="results"></SearchResults>
+      <b-alert v-if="results.length == 0" dismissible show> no results found for: {{ $v.form.searchQuery.$model }}
+      </b-alert>
+      <div v-else>
+        <!-- go to SearchResults component: -->
+        <SearchResults :keyID="keyID" title="Results" :results="results"></SearchResults>
+      </div>
+
     </div>
 
 
@@ -38,6 +45,7 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import SearchResults from "../components/SearchResults.vue";
+
 export default {
   name: "Search",
   data() {
@@ -49,7 +57,8 @@ export default {
         numberRecipesTo_show: 5,
         submitError: undefined,
       },
-      flag: false
+      flag: false,
+      keyID: 0
     };
   },
   validations: {
@@ -66,12 +75,14 @@ export default {
     },
     async Search() {
       try {
+        
         //console.log(this.form.searchQuery);
         //console.log("myQuery");
+        this.searchQuery = this.form.searchQuery; //maybe dont nedd
         var myQuery = "/recipes/search?query=" + this.form.searchQuery;
         //TODO: need to check with filtering too. cuisine/diet/intolerances and number of results.
         //console.log(myQuery);
-
+        console.log(this.$root.store.server_domain + myQuery)
         const response = await this.axios.get(
           //http://localhost:3000/recipes/search?query=pizza
           this.$root.store.server_domain + myQuery, { withCredentials: true, credentials: "include" });
@@ -82,9 +93,8 @@ export default {
 
         this.results.push(...recipes);
         console.log(this.results);
-        console.log("this.results - in father");
         this.flag = true;
-
+        this.keyID += 1;
 
       }
       catch (err) {
@@ -101,6 +111,16 @@ export default {
       }
       console.log("Search method go");
       this.Search();
+    },
+
+    onReset() {
+      this.form = {
+        searchQuery: "",
+
+      };
+      this.$nextTick(() => {
+        this.$v.$reset();
+      });
     }
   },
   components: { SearchResults }
