@@ -13,6 +13,13 @@
       <ul class="recipe-overview">
         <li>{{ recipe.readyInMinutes }} minutes</li>
         <li>{{ recipe.popularity }} likes</li>
+        <li>{{recipe.servings}} servings</li>
+        <li>Is Vegan ?{{recipe.vegan}}</li>
+        <li>Is Vegetarian ?{{recipe.Vegetarian}}</li>
+        <li>Is glutenFree ?{{recipe.glutenFree}}</li>
+        <li>Is In Favorite ?{{recipe.flagInFavorite}}</li>
+        <li>Is In Last Seen ?{{recipe.flagInLastSeen}}</li>
+
         <!-- this in the main page! -->
       </ul>
       <!-- <div v-if="recipe.flagInLastSeen">
@@ -22,51 +29,66 @@
         <h8>This recipee is in the favorite list !!</h8>
       </div> -->
     </div>
+        <!-- <iconBar class="iconbar" :isFavorite="isFavorite" :isLastseen="isLastseen" :isVegetarian="isVegetarian" :isVegan="isVegan" :isGlutenfree="isGlutenfree" ></iconBar> -->
   </router-link>
 </template>
 
 <script>
+// import iconBar from './iconBar.vue';
 export default {
-  mounted() {
-    this.axios.get(this.recipe.image).then((i) => {
-      this.image_load = true;
-    });
-  },
-  data() {
-    return {
-      image_load: false
-    };
-  },
-  props: {
-    recipe: {
-      type: Object,
-      required: true
-    }
+    mounted() {
+        this.axios.get(this.recipe.image).then((i) => {
+            this.image_load = true;
+        });
 
-    // id: {
-    //   type: Number,
-    //   required: true
-    // },
-    // title: {
-    //   type: String,
-    //   required: true
-    // },
-    // readyInMinutes: {
-    //   type: Number,
-    //   required: true
-    // },
-    // image: {
-    //   type: String,
-    //   required: true
-    // },
-    // aggregateLikes: {
-    //   type: Number,
-    //   required: false,
-    //   default() {
-    //     return undefined;
-    //   }
-    // }
-  }
+        // this.isFavorite = this.$props.recipe.flagInFavorite;
+        // this.isLastseen = this.$props.recipe.flagInLastSeen;
+        // this.isVegan = this.$props.recipe.vegan;
+        // this.isVegetarian = this.$props.recipe.vegetarian;
+        // this.isGlutenfree = this.$props.recipe.glutenFree;
+
+
+    },
+    data() {
+        return {
+            image_load: false,
+            // isFavorite:false,
+            // isLastseen:false,
+            // isVegan:false,
+            // isVegetarian:false,
+            // isGlutenfree:false
+        };
+    },
+    props: {
+        recipe: {
+            type: Object,
+            required: true
+        }
+        // id: {
+        //   type: Number,
+        //   required: true
+        // },
+        // title: {
+        //   type: String,
+        //   required: true
+        // },
+        // readyInMinutes: {
+        //   type: Number,
+        //   required: true
+        // },
+        // image: {
+        //   type: String,
+        //   required: true
+        // },
+        // aggregateLikes: {
+        //   type: Number,
+        //   required: false,
+        //   default() {
+        //     return undefined;
+        //   }
+        // }
+    },
+    // components: { iconBar }
 };
 </script>
 

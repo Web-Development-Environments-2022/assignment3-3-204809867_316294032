@@ -13,41 +13,63 @@
             <b-form @submit="onSubmit" @reset="onReset" v-if="show">
 
             <b-form-group id="input-group-2" label="Your recipe's title:" label-for="input-2">
-                <b-form-input
-                id="input-2"
-                v-model="form.title"
-                placeholder="Enter Title"
-                required
-                ></b-form-input>
+                <b-form-input id="input-2" v-model="form.title" placeholder="ex: Gefilte Fish" required></b-form-input>
             </b-form-group>
 
-            <!-- <b-form-group id="input-group-3" label="Food:" label-for="input-3">
-                <b-form-select
-                id="input-3"
-                v-model="form.food"
-                :options="foods"
-                required
-                ></b-form-select>
-            </b-form-group> -->
+            <b-form-group id="input-group-2" label="Your recipe's time to cook:" label-for="input-2">
+                <b-form-input id="input-2" v-model="form.readyInMinutes" placeholder="ex: 15" required></b-form-input>
+            </b-form-group>
 
-            <b-form-group id="input-group-4" v-slot="{ ariaDescribedby }">
-                <b-form-checkbox-group
-                v-model="form.checked"
-                id="checkboxes-4"
-                :aria-describedby="ariaDescribedby"
-                >
-                <b-form-checkbox value="true">Vegan</b-form-checkbox>
-                <b-form-checkbox value="true" >Vegetarian</b-form-checkbox>
-                <b-form-checkbox value="true" >GlutenFree</b-form-checkbox>
-                </b-form-checkbox-group>
+            <b-form-group id="input-group-2" label="Your recipe's image:" label-for="input-2">
+                <b-form-input id="input-2" v-model="form.image" placeholder="ex: http://www.dar_abu_told_me_she_loves_gefilte_fishh.com/picture" required></b-form-input>
+            </b-form-group>
+
+            <b-form-group id="input-group-2" label="Your recipe's popularity:" label-for="input-2">
+                <b-form-input id="input-2" v-model="form.popularity" placeholder="ex: 2" required></b-form-input>
+            </b-form-group>
+
+            <b-form-group id="input-group-2" label="Your recipe's vegan:" label-for="input-2">
+                <b-form-input id="input-2" v-model="form.vegan" placeholder="ex: false" required></b-form-input>
+            </b-form-group>
+
+            <b-form-group id="input-group-2" label="Your recipe's vegetarian:" label-for="input-2">
+                <b-form-input id="input-2" v-model="form.vegetarian" placeholder="ex: true" required></b-form-input>
+            </b-form-group>
+
+            <b-form-group id="input-group-2" label="Your recipe's glutenFree:" label-for="input-2">
+                <b-form-input id="input-2" v-model="form.glutenFree" placeholder="ex: false" required></b-form-input>
+            </b-form-group>
+
+            <b-form-group id="input-group-2" label="Your recipe's servings:" label-for="input-2">
+                <b-form-input id="input-2" v-model="form.servings" placeholder="ex: 15" required></b-form-input>
+            </b-form-group>
+
+            <b-form-group id="input-group-2" label="Your recipe's Instructions:" label-for="input-2">
+                <b-form-input id="input-2" v-model="form.Instructions" placeholder="ex: take the karpion, try to cook it somehow, or simply go ask your savta, she probably knows" required></b-form-input>
+            </b-form-group>
+
+            <b-form-group id="input-group-2" label="Your recipe's IngredientsList:" label-for="input-2">
+                <b-form-input id="input-2" v-model="form.IngredientsList" placeholder="ex: karpion, carrots, salt,..." required></b-form-input>
+            </b-form-group>
+
+            <b-form-group id="input-group-3" label="Vegan:" label-for="input-3">
+              <b-form-select id="input-3" v-model="form.vegan" :options="foodsvegan" required></b-form-select>
+            </b-form-group>
+
+            <b-form-group id="input-group-3" label="Vegetarian:" label-for="input-3">
+              <b-form-select id="input-3" v-model="form.vegetarian" :options="foodsvegetarian" required></b-form-select>
+            </b-form-group>
+
+            <b-form-group id="input-group-3" label="Gluten Free:" label-for="input-3">
+              <b-form-select id="input-3" v-model="form.glutenFree" :options="foodsglutenFree" required></b-form-select>
             </b-form-group>
 
             <b-button type="submit" variant="primary">Submit</b-button>
             <b-button type="reset" variant="danger">Reset</b-button>
             </b-form>
-            <b-card class="mt-3" header="Form Data Result">
+            <!-- <b-card class="mt-3" header="Form Data Result">
             <pre class="m-0">{{ form }}</pre>
-            </b-card>
+            </b-card> -->
          </div>
         </b-modal>
     <div v-if="flagResponse">
@@ -62,24 +84,68 @@
 
 <script>
 import PersonalResults from "../components/PersonalResults";
-// import CreateRecipeModal from "../components/CreateRecipeModal";
+import { BButton } from "bootstrap-vue";
+import { required, } from "vuelidate/lib/validators";
 
 export default {
   name: "personal",
   data() {
     return {
         form: {
-            title: '',
-            // food: null,
-            checked: []
-        },
-        // foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
+                title: "",
+                readyInMinutes: "",
+                image: "",
+                popularity: "",
+                vegan: "",
+                vegetarian:"",
+                glutenFree:"",
+                servings:"",
+                Instructions:"",
+                IngredientsList:"",
+            },
+        foodsvegan: [{ text: 'Select One', value: null }, 'true', 'false'],
+        foodsvegetarian: [{ text: 'Select One', value: null }, 'true', 'false'],
+        foodsglutenFree: [{ text: 'Select One', value: null }, 'true', 'false'],
         show: true,
         results:[],
         showModal: false,
         flagResponse: false
     };
   },
+  validations: {
+        form: {
+            title: {
+                required,
+            },
+            readyInMinutes: {
+                required,
+            },
+            image: {
+                required,
+            },
+            popularity: {
+                required,
+            },
+            vegan: {
+                required,
+            },
+            vegetarian: {
+                required,
+            },
+            glutenFree: {
+                required,
+            },
+            servings: {
+                required,
+            },
+            Instructions: {
+                required,
+            },
+            IngredientsList: {
+                required,
+            },
+        }
+    },
   async created(){
     //if the user is connected
     if (this.$root.store.username) {
@@ -96,25 +162,64 @@ export default {
 
   },
   methods: {
+      async createMyNewRecipe(){
+          try {
+            const response = await this.axios.post(this.$root.store.server_domain + "/users/myrecipe",
+            {
+              // withCredentials: true,
+              // credentials: "include",
+              title: this.form.title,
+              readyInMinutes: this.form.readyInMinutes,
+              image: this.form.image,
+              popularity:this.form.popularity,
+              vegan: this.form.vegan,
+              vegetarian: this.form.vegetarian,
+              glutenFree: this.form.glutenFree,
+              servings:this.form.servings,
+              Instructions: this.form.Instructions,
+              IngredientsList: this.form.IngredientsList,
+            },{ withCredentials: true, credentials: "include" }
+
+            );
+            console.log(response);
+          } catch (err) {
+            console.log(err.response);
+            this.form.submitError = err.response.data.message;
+          }
+
+
+      },
       onSubmit(event) {
         event.preventDefault()
-        alert(JSON.stringify(this.form))
+        console.log(this.form)
+        this.createMyNewRecipe()
+        //alert(JSON.stringify(this.form))
       },
       onReset(event) {
         event.preventDefault()
         // Reset our form values
-        this.form.email = ''
-        this.form.name = ''
-        this.form.food = null
-        this.form.checked = []
+       this.form = {
+                title: "",
+                readyInMinutes: "",
+                image: "",
+                popularity: "",
+                vegan: "",
+                vegetarian:"",
+                glutenFree:"",
+                servings:"",
+                Instructions:"",
+                IngredientsList:"",
+            };
         // Trick to reset/clear native browser form validation state
         this.show = false
         this.$nextTick(() => {
           this.show = true
         })
       }
+    
     },
-  components: { PersonalResults }
+  
+  components: { PersonalResults, BButton }
 };
 </script>
 
