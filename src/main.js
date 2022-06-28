@@ -13,6 +13,11 @@ const router = new VueRouter({
   routes,
 });
 
+//modal 
+import { ModalPlugin } from 'bootstrap-vue'
+Vue.use(ModalPlugin)
+
+
 import Vuelidate from "vuelidate";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -43,7 +48,6 @@ import {
   FormRadioPlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
-
 axios.interceptors.request.use(
   function(config) {
     // Do something before request is sent

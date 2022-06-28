@@ -120,16 +120,29 @@ export default {
     console.log(this.$props.isVegan)
     console.log(this.$props.isVegetarian)
     console.log(this.$props.isGlutenfree)
-        try {
-            this.dataflagiflagInFavorite = this.$props.isFavorite;
-            this.dataflagiflagInLastSeen = this.$props.isLastseen;
-            this.dataflagiflagVegan = this.$props.isVegan;
-            this.dataflagiflagVegetarian = this.$props.isVegetarian;
-            this.dataflagiflagGlutenFree = this.$props.isGlutenfree;
+      
+    if(this.$props.isFavorite == "true"){
+      this.dataflagiflagInFavorite = true;
+    }
+    if(this.$props.isLastseen == "true"){
+      this.dataflagiflagInLastSeen = true;
+    }
+    if(this.$props.isVegan == "true"){
+      this.dataflagiflagVegan = true;
+    }
+    if(this.$props.isVegetarian == "true"){
+      this.dataflagiflagVegetarian = true;
+    }
+    if(this.$props.isGlutenfree == "true"){
+      this.dataflagiflagGlutenFree = true;
+    }
+            
+            // this.dataflagiflagInLastSeen = this.$props.isLastseen;
+            // this.dataflagiflagVegan = this.$props.isVegan;
+            // this.dataflagiflagVegetarian = this.$props.isVegetarian;
+            // this.dataflagiflagGlutenFree = this.$props.isGlutenfree;
 
-        }catch (error) {
-            console.log("errrrrrrrrrrrrrrrrrrrrrrrrrrrror");
-        } 
+        
   },
   methods: {
     async updateFavorite(){

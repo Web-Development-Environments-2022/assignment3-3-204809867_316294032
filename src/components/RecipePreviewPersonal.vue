@@ -13,23 +13,48 @@
       </div>
       <ul class="recipe-overview">
         <li>{{ recipe.readyInMinutes }} minutes</li>
+        <br>
         <li>{{ recipe.popularity }} likes</li>
-        <!-- this in the main page! -->
+        <br>
+        <li>{{recipe.servings}} servings</li>
+        <br>
+        <li>Is Vegan ?{{recipe.vegan}}</li>
+        <br>
+        <li>Is Vegetarian ?{{recipe.Vegetarian}}</li>
+        <br>
+        <li>Is glutenFree ?{{recipe.glutenFree}}</li>
+
       </ul>
     </div>
+    
+    <!-- <iconBar class="iconbar" :isFavorite="isFavorite" :isLastseen="isLastseen" :isVegetarian="isVegetarian" :isVegan="isVegan" :isGlutenfree="isGlutenfree" ></iconBar> -->
+
   </router-link>
 </template>
 
 <script>
+// import iconBar from './iconBar.vue';
+
 export default {
   mounted() {
     this.axios.get(this.recipe.image).then((i) => {
       this.image_load = true;
     });
+    // console.log(this.$props.recipe.vegan)
+    //   this.isFavorite = true
+    //   this.isLastseen = true
+    //   this.isVegan = this.$props.recipe.vegan;
+    //   this.isVegetarian = this.$props.recipe.vegetarian;
+    //   this.isGlutenfree = this.$props.recipe.glutenFree;
   },
   data() {
     return {
-      image_load: false
+      image_load: false,
+      // isFavorite:false,
+      // isLastseen:false,
+      // isVegan:false,
+      // isVegetarian:false,
+      // isGlutenfree:false
     };
   },
   props: {
@@ -61,7 +86,9 @@ export default {
     //     return undefined;
     //   }
     // }
-  }
+  },
+  // components: { iconBar }
+
 };
 </script>
 
