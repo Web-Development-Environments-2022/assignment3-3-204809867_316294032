@@ -2,6 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
+
 //import VueCookies from "vue-cookies";
 //axios.defaults.baseURL =  "http://localhost:3000";
 
@@ -31,6 +32,7 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  FormRadioPlugin,
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -43,6 +45,7 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  FormRadioPlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 axios.interceptors.request.use(

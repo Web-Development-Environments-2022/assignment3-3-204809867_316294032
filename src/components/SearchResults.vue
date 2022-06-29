@@ -51,7 +51,7 @@ export default {
     async showRecipesResults() {
       try {
         const recipes = this.results;
-        console.log(recipes);
+        //console.log(recipes);
         this.recipes = [];
         this.recipes.push(...recipes);
         
