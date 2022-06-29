@@ -13,16 +13,26 @@
       </div>
       <ul class="recipe-overview">
         <li>{{ recipe.readyInMinutes }} minutes</li>
-        <br>
+        
         <li>{{ recipe.popularity }} likes</li>
-        <br>
+        
         <li>{{recipe.servings}} servings</li>
-        <br>
-        <li>Is Vegan ?{{recipe.vegan}}</li>
-        <br>
+        
+        <!-- <li>Is Vegan ?{{recipe.vegan}}</li>
+        
         <li>Is Vegetarian ?{{recipe.Vegetarian}}</li>
-        <br>
-        <li>Is glutenFree ?{{recipe.glutenFree}}</li>
+        
+        <li>Is glutenFree ?{{recipe.glutenFree}}</li> -->
+
+      </ul>
+
+      <ul class="recipe-overview">
+        
+        <li v-if="recipe.vegan == 'true'">Vegan</li>
+        
+        <li v-if="recipe.vegetarian == 'true'">Vegetarian</li>
+        
+        <li v-if="recipe.glutenFree == 'true'">Gluten-Free</li>
 
       </ul>
     </div>
