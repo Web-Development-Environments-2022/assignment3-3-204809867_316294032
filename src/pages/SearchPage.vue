@@ -213,6 +213,7 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 400px;
+  font-family: system-ui;
 }
 .selected{
   display: inline-block;

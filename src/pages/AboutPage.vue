@@ -7,6 +7,15 @@
               font-size: 25px;
               letter-spacing: 7px;
               font-family: system-ui;
+              height: 100%;
+              width: 100%;
+              background-position: center;
+              background-size: cover;
+              display: flex;
+              justify-content: center;
+              padding-bottom: 20px;
+              padding-top: 10px;
+              text-align: center;
             " >ABOUT US</span>
     <br>
     This project was made by Dar Abu and Ido Hersko as part of the Web Developement course in the Ben-Gurion University of the Negev.
@@ -46,10 +55,11 @@
   </center>
 
 
-
+<br>
 
     <footer>
-    <div class=footer-container style="background-color: white;">
+    <div class=footer-container style="background-color:rgb(226, 226, 150);
+;">
       <div class="footer-cointainer-child dar">
         <div class="footer-social-icons">
           <h4 class="_14">Dar Ab</h4>
@@ -113,6 +123,11 @@
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css);
 
 /* over on social-icons  */
+.container{
+  background-color: rgb(226, 226, 150);
+
+}
+
 li > a:hover{
     color: #d9d9d9;
     text-decoration:  underline;
@@ -213,10 +228,10 @@ ul.social-icons {
     justify-content: center;
     align-items: center;
     height: 73px;
-    border-top: 3px solid rgb(49, 38, 38);
+    border-top: 3px solid rgb(219, 157, 75);
     padding: 80px ;
     font-size: 15px;
-    color: #f6d267;
+    color: #f79839;
     
 
 }
@@ -228,6 +243,7 @@ ul.social-icons {
 
 ._14 {
     text-align: center;
+    
 }
 
 </style>
