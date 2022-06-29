@@ -28,6 +28,12 @@
     <b-alert class="mt-2" v-if="form.submitError" variant="warning" dismissible show>
       Login failed: {{ form.submitError }}
     </b-alert>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <RecipePreviewList  title="Explore those recipes" call_type="random" class="RandomRecipes center" />
     <!-- <b-card class="mt-3" header="Form Data Result">
       <pre class="m-0">{{ form }}</pre>
     </b-card> -->
@@ -36,6 +42,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
+import RecipePreviewList from "../components/RecipePreviewList";
 export default {
   name: "Login",
   data() {
@@ -99,11 +106,14 @@ export default {
 
       this.Login();
     }
+  },
+  components: {
+    RecipePreviewList
   }
 };
 </script>
 <style lang="scss" scoped>
-.container {
-  max-width: 400px;
-}
+// .container {
+//   max-width: 400px;
+// }
 </style>

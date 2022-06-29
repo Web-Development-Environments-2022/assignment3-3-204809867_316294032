@@ -23,7 +23,51 @@
         <b-form-invalid-feedback v-if="!$v.form.username.alpha">
           Username alpha
         </b-form-invalid-feedback>
+
       </b-form-group>
+      
+      
+      <b-form-group
+        id="input-group-firstname"
+        label-cols-sm="3"
+        label="firstname:"
+        label-for="firstname"
+      >
+        <b-form-input
+          id="firstname"
+          v-model="$v.form.firstname.$model"
+          type="text"
+          :state="validateState('firstname')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.firstname.required">
+          firstname is required
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+
+            <b-form-group
+        id="input-group-lastname"
+        label-cols-sm="3"
+        label="lastname:"
+        label-for="lastname"
+      >
+        <b-form-input
+          id="lastname"
+          v-model="$v.form.lastname.$model"
+          type="text"
+          :state="validateState('lastname')"
+        ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.lastname.required">
+          lastname is required
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+
+
+
+      
+
+      
 
       <b-form-group
         id="input-group-country"
@@ -90,6 +134,24 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
+
+
+
+      <b-form-group
+        id="input-group-email"
+        label-cols-sm="3"
+        label="email:"
+        label-for="email"
+        description="We'll never share your email with anyone else."
+      >
+        <b-form-input
+          id="email"
+          type="text"
+          v-model="$v.form.email.$model"
+          :state="validateState('email')"
+        ></b-form-input>
+      </b-form-group>
+
       <b-button type="reset" variant="danger">Reset</b-button>
       <b-button
         type="submit"
@@ -137,8 +199,8 @@ export default {
     return {
       form: {
         username: "",
-        firstName: "",
-        lastName: "",
+        firstname: "",
+        lastname: "",
         country: null,
         password: "",
         confirmedPassword: "",
@@ -157,6 +219,14 @@ export default {
         length: (u) => minLength(3)(u) && maxLength(8)(u),
         alpha
       },
+      firstname: {
+        required,
+        
+      },
+      lastname: {
+        required,
+        
+      },
       country: {
         required
       },
@@ -167,6 +237,9 @@ export default {
       confirmedPassword: {
         required,
         sameAsPassword: sameAs("password")
+      },
+      email:{
+        required,
       }
     }
   },
@@ -182,18 +255,18 @@ export default {
     },
     async Register() {
       try {
-        console.log(this.$root.store.server_domain);
+        //console.log(this.$root.store.server_domain);
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Register",
           // "http://localhost:3000/Register",
           this.$root.store.server_domain + "/Register",
           {
             username: this.form.username,
-            //firstname: this.form.firstname,
-            //lastname: this.form.lastname,
+            firstname: this.form.firstname,
+            lastname: this.form.lastname,
             country: this.form.country,
             password: this.form.password,
-            //email: this.form.email
+             email: this.form.email
           }
         );
         this.$router.push("/login");
@@ -215,8 +288,8 @@ export default {
     onReset() {
       this.form = {
         username: "",
-        firstName: "",
-        lastName: "",
+        firstname: "",
+        lastname: "",
         country: null,
         password: "",
         confirmedPassword: "",

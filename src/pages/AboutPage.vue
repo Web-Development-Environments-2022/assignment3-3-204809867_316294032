@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <center>
-    
+    <br>
+    <br>
       <span style="
               text-align: center;
               font-size: 25px;
@@ -18,6 +19,15 @@
               text-align: center;
             " >ABOUT US</span>
     <br>
+          <center>
+				<img id="dar_ido" src="../assets/Dar-Ido2.jpeg" style="width: 250px;
+			height: 350px;
+			margin-bottom: -40px;
+			margin-top: 5px;" />
+			</center>
+      <br>
+      <br>
+      <br>
     This project was made by Dar Abu and Ido Hersko as part of the Web Developement course in the Ben-Gurion University of the Negev.
     We are two friends who loves to code and debug ( who doesnt after all ?) and we are very happy to let you use this website.
     <br>
@@ -53,7 +63,16 @@
 
     <a href="https://web-development-environments-2021.github.io/assignment1-204809867/">Personal page of David Ben-Gurion (Ido)</a>
   </center>
-
+    <!-- <br>
+    <br>
+    <br>
+    <br>
+    <span style="
+              text-align: center;
+              font-size: 25px;
+              letter-spacing: 7px;
+              font-family: system-ui;
+            "> US</span> -->
 
 <br>
 
