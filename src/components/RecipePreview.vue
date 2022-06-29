@@ -14,14 +14,23 @@
         <li>{{ recipe.readyInMinutes }} minutes</li>
         <li>{{ recipe.popularity }} likes</li>
         <li>{{recipe.servings}} servings</li>
-        <li>Is Vegan ?{{recipe.vegan}}</li>
-        <li>Is Vegetarian ?{{recipe.Vegetarian}}</li>
-        <li>Is glutenFree ?{{recipe.glutenFree}}</li>
-        <li>Is In Favorite ?{{recipe.flagInFavorite}}</li>
-        <li>Is In Last Seen ?{{recipe.flagInLastSeen}}</li>
-
         <!-- this in the main page! -->
       </ul>
+      <ul class="recipe-overview">
+        
+        <li v-if="recipe.vegan">Vegan</li>
+        
+        <li v-if="recipe.vegetarian">Vegetarian</li>
+        
+        <li v-if="recipe.glutenFree">Gluten-Free</li>
+
+      </ul>
+      <ul class="recipe-overview">
+        
+        <li v-if="recipe.flagInFavorite" >Favorite</li>
+        <li v-if="recipe.flagInLastSeen" >Last-Seen</li>
+
+      </ul>     
       <!-- <div v-if="recipe.flagInLastSeen">
         <h8>This recipee is in the last seen list !!</h8>
       </div>

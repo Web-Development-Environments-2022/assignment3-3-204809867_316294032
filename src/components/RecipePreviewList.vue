@@ -87,6 +87,7 @@ export default {
       }
     },
     async updateRandomWith3More(){
+      let response;
       try{
         response = await this.axios.get(
               this.$root.store.server_domain + "/recipes/random/3",
