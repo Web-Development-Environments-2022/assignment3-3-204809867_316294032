@@ -12,8 +12,8 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
-      <!-- <div id="filtering" style="display:flex"> -->
-      <div id="filtering">
+      <div id="filtering" style="display:flex">
+      <!-- <div id="filtering"> -->
         <b-form-group id="input-group-cuisine" label="cuisine:" label-for="cuisine">
           <b-form-select id="cuisine" v-model="form.cuisine" :options="cuisines" style="width:auto"></b-form-select>
         </b-form-group>
@@ -26,34 +26,32 @@
         </b-form-group>
       </div>
 
-
-      <!-- <div id="selectedr">
-        <label style="padding:5px"><input type="radio" id="num5" value="5" v-model="form.numberRecipes"
-            aria-describedby="defult-choose-help-block">5</label>
-        <label style="padding:5px"><input type="radio" id="num10" value="10" v-model="form.numberRecipes">10</label>
-        <label style="padding:5px"><input type="radio" id="num15" value="15" v-model="form.numberRecipes">15</label>
-      </div>
-      <b-form-text id="defult-choose-help-block"> You can choose how many results would you like to be returned. Note!
-        default is 5. </b-form-text>
-      <br> -->
+      <div id="selected" class ="selected">
       <b-form-group label="" v-slot="{ ariaDescribedby }">
-        <b-form-radio v-model="form.numberRecipes" :aria-describedby="defult-choose-help-block" name="some-radios" value="5">5</b-form-radio>
-        <b-form-radio v-model="form.numberRecipes" :aria-describedby="ariaDescribedby" name="some-radios" value="10">10</b-form-radio>
-        <b-form-radio v-model="form.numberRecipes" :aria-describedby="ariaDescribedby" name="some-radios" value="15">15</b-form-radio>
-      </b-form-group>
-      <b-form-text id="defult-choose-help-block"> You can choose how many results would you like to be returned. Note!
+        <b-form-radio class ="selected" v-model="form.numberRecipes" :aria-describedby="defult - choose - help - block" name="some-radios"
+          value="5">5</b-form-radio>
+          
+        <b-form-radio class ="selected" v-model="form.numberRecipes" :aria-describedby="ariaDescribedby" name="some-radios" value="10">10
+        </b-form-radio>
+        <b-form-radio class ="selected" v-model="form.numberRecipes" :aria-describedby="ariaDescribedby" name="some-radios" value="15">15
+        </b-form-radio>
+        <b-form-text id="defult-choose-help-block"> You can choose how many results would you like to be returned. Note!
         default is 5. </b-form-text>
-      <!-- <div class="mt-3">Selected: <strong>{{ form.numberRecipes }}</strong></div> -->
+      </b-form-group>
+     </div>
+      
+ 
+      <br>
+      <b-form-group id="input-group-sortBy" class="sortBy" label="sort by:" label-for="sortBy">
+        <b-form-select id="sortBy" class="sortBy" v-model="form.sortBy" :options="sortByOptions" style="width:auto"></b-form-select>
+      </b-form-group>
+
       <br>
       <b-button type="submit" variant="primary" style="width:100px;display:block;" class="mx-auto w-100">search
       </b-button>
+
     </b-form>
 
-
-    <!-- this part will be for no results in v-else!!! -->
-    <b-alert class="mt-2" v-if="form.submitError" variant="warning" dismissible show>
-      no results found for: {{ $v.form.searchQuery.$model }}
-    </b-alert>
     <!-- <b-card class="mt-3" header="Form Data Result">
       <pre class="m-0">{{ form }}</pre>
     </b-card> -->
@@ -81,12 +79,13 @@ export default {
   data() {
     return {
       form: {
-        searchQuery: localStorage.searchQuery || "",
+        searchQuery: "",
         numberRecipes: 5,
         cuisine: "",
         diet: "",
         Intolerances: "",
         submitError: undefined, //check if need it.
+        sortBy: "",
       },
       results: [],
       last_search: "",
@@ -95,7 +94,11 @@ export default {
       Intolerances: [{ value: "", text: "None" }],
       flag: false,
       keyID: 0,
-      
+      sortByOptions: [{ value: "", text: "None" },
+      { value: "popularity", text: "Popularity" },
+      { value: "readyInMinutes", text: "Preparation" }]
+
+
     };
   },
   validations: {
@@ -112,6 +115,7 @@ export default {
     this.Intolerances.push(...Intolerances);
     //console.log($v);
   },
+
   methods: {
     validateState(param) {
       const { $dirty, $error } = this.$v.form[param];
@@ -119,23 +123,35 @@ export default {
     },
     async Search() {
       try {
-        //console.log(this.form.searchQuery);
-        //console.log("myQuery");
-        this.searchQuery = this.form.searchQuery; //maybe dont nedd
+        //with filtering cuisine/diet/intolerances and number of results.
         var myQuery = "/recipes/search?query=" + this.form.searchQuery + "&num=" + this.form.numberRecipes + "&cuisine=" + this.form.cuisine + "&diet=" + this.form.diet + "&intolerances=" + this.form.Intolerances;
-      
-        //TODO: need to check with filtering too. cuisine/diet/intolerances and number of results.
         console.log(this.$root.store.server_domain + myQuery)
         const response = await this.axios.get(
           //http://localhost:3000/recipes/search?query=pizza
           this.$root.store.server_domain + myQuery, { withCredentials: true, credentials: "include" });
-        console.log(response);
+
         const recipes = response.data; //results
         this.results = [];
         this.flag = false;
 
         this.results.push(...recipes);
+
+        switch (this.form.sortBy) {
+          case "popularity":
+            console.log("Popularity");
+            this.sortByPopularity();
+            break;
+          case "readyInMinutes": // readyInMinutes
+            console.log("Preparation");
+            this.sortByPreparation();
+            break;
+          default: //None
+            console.log("None - return like it is");
+            break;
+        }
+
         console.log(this.results);
+
         this.flag = true;
         this.keyID += 1;
 
@@ -156,6 +172,31 @@ export default {
       this.Search();
     },
 
+    async sortByPopularity() { // sort Decending 
+      this.results.sort(function (a, b) {
+        if (a.popularity < b.popularity) {
+          return 1;
+        }
+        if (a.popularity > b.popularity) {
+          return -1;
+        }
+        return 0;
+      });
+
+    },
+    async sortByPreparation() { // sort accecending 
+      this.results.sort(function (a, b) {
+        if (a.readyInMinutes < b.readyInMinutes) {
+          return -1;
+        }
+        if (a.readyInMinutes > b.readyInMinutes) {
+          return 1;
+        }
+        return 0;
+      });
+
+    },
+
     onReset() {
       this.form = {
         searchQuery: "",
@@ -172,5 +213,13 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 400px;
+}
+.selected{
+  display: inline-block;
+  margin-right: 30px;
+}
+
+.sortBy{
+  display: inline-block;
 }
 </style>
