@@ -121,19 +121,20 @@ export default {
     console.log(this.$props.isVegetarian)
     console.log(this.$props.isGlutenfree)
       
-    if(this.$props.isFavorite == "true"){
+    if((this.$props.isFavorite == "true") || (this.$props.isFavorite == true) )
+    {
       this.dataflagiflagInFavorite = true;
     }
-    if(this.$props.isLastseen == "true"){
+    if(this.$props.isLastseen == "true" || (this.$props.isLastseen == true)){
       this.dataflagiflagInLastSeen = true;
     }
-    if(this.$props.isVegan == "true"){
+    if(this.$props.isVegan == "true" || (this.$props.isVegan == true)){
       this.dataflagiflagVegan = true;
     }
-    if(this.$props.isVegetarian == "true"){
+    if(this.$props.isVegetarian == "true" || (this.$props.isVegetarian == true)){
       this.dataflagiflagVegetarian = true;
     }
-    if(this.$props.isGlutenfree == "true"){
+    if(this.$props.isGlutenfree == "true" || (this.$props.isGlutenfree == true)){
       this.dataflagiflagGlutenFree = true;
     }
             
