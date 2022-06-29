@@ -113,5 +113,6 @@ export default {
 <style lang="scss" scoped>
 .container {
   min-height: 400px;
+  
 }
 </style>

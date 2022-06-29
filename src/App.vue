@@ -28,7 +28,7 @@ import Navigation from "./components/Navigation.vue";
 export default {
     name: "App",
     methods: {
-        Logout() {
+         Logout() {
             this.$root.store.logout();
             this.$root.toast("Logout", "User logged out successfully", "success");
             this.$router.push("/").catch(() => {

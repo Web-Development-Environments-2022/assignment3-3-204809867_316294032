@@ -87,6 +87,7 @@ const shared_data = {
     console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
+  
   },
 };
 console.log(shared_data);
@@ -110,7 +111,7 @@ new Vue({
         appendToast: append,
         autoHideDelay: 3000,
       });
-    },
+    }
   },
   render: (h) => h(App),
 }).$mount("#app")

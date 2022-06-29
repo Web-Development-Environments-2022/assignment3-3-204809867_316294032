@@ -79,15 +79,27 @@ export default {
     
   },
   methods: {
-    Logout() {
+    async Logout() {
       this.$root.store.logout();
+      try {
+        const response = await this.axios.post(
+          //http://localhost:3000/Logout
+          this.$root.store.server_domain + "/Logout"
+        );
+        console.log(response);
+        this.$root.loggedIn = false;
+        console.log(this.$root.store.logout);
+      } catch (err) {
+        console("problem herrrrre");
+        console.log(err.response);
+        this.form.submitError = err.response.data.message;
+      }
       this.$root.toast("Logout", "User logged out successfully", "success");
-
       this.$router.push("/").catch(() => {
         this.$forceUpdate();
       });
     },
-    dropdowntoggle(){
+        dropdowntoggle(){
       this.flagShow = !this.flagShow;
     }
   }};

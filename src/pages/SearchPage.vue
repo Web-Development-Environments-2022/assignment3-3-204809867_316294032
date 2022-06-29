@@ -6,6 +6,7 @@
       <b-form-group id="input-group-Search" label="" label-for="Search">
         <b-form-input id="Search" style="width:450px" v-model="$v.form.searchQuery.$model" type="text"
           :state="validateState('searchQuery')" placeholder="Search recipes..."></b-form-input>
+        <pre v-if="this.last_search && keyID!=0">your last search is:{{ last_search }}</pre>
 
         <b-form-invalid-feedback>
           Search query is requested.
@@ -28,16 +29,15 @@
 
       <div id="selected" class ="selected">
       <b-form-group label="" v-slot="{ ariaDescribedby }">
-        <b-form-radio class ="selected" v-model="form.numberRecipes" :aria-describedby="defult - choose - help - block" name="some-radios"
+        <b-form-radio class ="selected" v-model="form.numberRecipes" name="some-radios"
           value="5">5</b-form-radio>
           
         <b-form-radio class ="selected" v-model="form.numberRecipes" :aria-describedby="ariaDescribedby" name="some-radios" value="10">10
         </b-form-radio>
         <b-form-radio class ="selected" v-model="form.numberRecipes" :aria-describedby="ariaDescribedby" name="some-radios" value="15">15
         </b-form-radio>
-        <b-form-text id="defult-choose-help-block"> You can choose how many results would you like to be returned. Note!
-        default is 5. </b-form-text>
-      </b-form-group>
+        <b-form-text> You can choose how many results would you like to be returned. Note!
+        default is 5. </b-form-text></b-form-group>
      </div>
       
  
@@ -51,6 +51,7 @@
       </b-button>
 
     </b-form>
+
 
     <!-- <b-card class="mt-3" header="Form Data Result">
       <pre class="m-0">{{ form }}</pre>
@@ -113,9 +114,12 @@ export default {
     this.cuisines.push(...cuisines);
     this.diets.push(...diets);
     this.Intolerances.push(...Intolerances);
+    
     //console.log($v);
   },
-
+  created(){
+    this.getMyLastSearch();
+  },
   methods: {
     validateState(param) {
       const { $dirty, $error } = this.$v.form[param];
@@ -151,6 +155,7 @@ export default {
         }
 
         console.log(this.results);
+        this.getMyLastSearch();
 
         this.flag = true;
         this.keyID += 1;
@@ -196,6 +201,21 @@ export default {
       });
 
     },
+    async getMyLastSearch(){
+      try {
+        if(this.$root.store.username){
+          const response = await this.axios.get(
+          this.$root.store.server_domain + "/users/lastSearch", { withCredentials: true, credentials: "include" });
+
+        console.log(this.last_search);
+        this.last_search = response.data; 
+        console.log(this.last_search);
+        }
+
+      } catch (error) {
+        console.log("error.response.status", error.response.status);
+      }
+     },
 
     onReset() {
       this.form = {
