@@ -49,11 +49,24 @@ export default {
 @import "@/scss/form-style.scss";
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: system-ui;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   min-height: 100vh;
+
+    height: 100%;
+    width: 100%;
+
+    //background-image: url(assets/background.jpg);
+    //background-position: center;
+    // background-size: cover;
+    //display:contents;
+    // justify-content: center;
+    //padding-bottom: 20px;
+    //padding-top: 10px;
+    //text-align: center;
+    //flex-flow: row;
 }
 
 #nav {
