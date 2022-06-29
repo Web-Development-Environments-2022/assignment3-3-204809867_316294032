@@ -103,7 +103,10 @@ export default {
                 flagInFavorite,
                 flagInLastSeen
             };
-            console.log(_recipe);
+            console.log(typeof(_recipe.analyzedInstructions))
+            console.log(typeof(_recipe.extendedIngredients))
+
+            //console.log(_recipe);
             this.recipe = _recipe;
             this.isFavorite = _recipe.flagInFavorite;
             this.isLastseen = _recipe.flagInLastSeen;

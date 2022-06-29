@@ -5,14 +5,15 @@
       {{ title }}:
       <slot></slot>
     </h3>
+         <div v-if="call_type == 'random'">
+        <b-button pill variant="outline-secondary" class="bbb" @click="updateRandomWith3More">More</b-button> 
+      </div>
     <b-row>
       <b-col v-for="r in recipes" :key="r.id">
         <RecipePreview class="recipePreview" :recipe="r" />
       </b-col>
     </b-row>
-     <div v-if="call_type == 'random'">
-        <b-button pill variant="outline-secondary" class="bbb" @click="updateRandomWith3More">More</b-button> 
-      </div>
+
   </b-container>
  
   
