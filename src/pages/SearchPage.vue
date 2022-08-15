@@ -14,7 +14,7 @@
       </b-form-group>
 
       <div id="filtering" style="display:flex">
-\        <b-form-group id="input-group-cuisine" label="cuisine:" label-for="cuisine">
+        <b-form-group id="input-group-cuisine" label="cuisine:" label-for="cuisine">
           <b-form-select id="cuisine" v-model="form.cuisine" :options="cuisines" style="width:auto"></b-form-select>
         </b-form-group>
         <b-form-group id="input-group-diet" label="diet:" label-for="diet">

@@ -44,9 +44,8 @@
       <ul class="recipe-overview">
         <li v-if="recipe.flagInFavorite" >
           <img id="favorite-icon" src="../assets/logo/Favorite.jpg">
-          In Favorite
-        </li>
-        <li v-if="recipe.flagInLastSeen" ><br/>Last-Seen</li>
+          In Favorite</li>
+        <li v-if="recipe.flagInLastSeen" >Last-Seen</li>
 
       </ul>     
       <!-- <div v-if="recipe.flagInLastSeen">
