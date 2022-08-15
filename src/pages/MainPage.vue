@@ -1,52 +1,21 @@
 <template>
-  <!-- <div class="container">
+  <div class="container">
     <h1 class="title">Main Page</h1>
-    <div class="split left">
-      <div class="centered">
-        <RecipePreviewList title="Explore this recipes" call_type="random" class="RandomRecipes center" />
-      </div>
+
+    <div id="left">
+      <RecipePreviewList title="Explore this recipes:" call_type="random" class="RandomRecipes center" />
     </div>
-    
+    <router-link id="ref-Login" v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue your history
+    </router-link>
+    <div id="right">
+    <RecipePreviewList title="Last watched recipes:" call_type="lastWatch" :class="{
+      RandomRecipes: true,
+      blur: !$root.store.username,
+      center: true
+    }" disabled>
+    </RecipePreviewList>
+    </div>
 
-    <div class="split right">
-      <div class="centered">
-        <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
-        <RecipePreviewList title="Last watched recipes" call_type="lastWatch"
-          :class="{
-            RandomRecipes: true,
-            blur: !$root.store.username,
-            center: true}"
-          disabled>
-        </RecipePreviewList>
-      </div>
-    </div> -->
-
-      <div class="container">
-    <h1 class="title">Main Page</h1>
-
-        
-    <RecipePreviewList title="Explore this recipes" call_type="random" class="RandomRecipes center" />
-
-   
-        <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
-        <RecipePreviewList title="Last watched recipes" call_type="lastWatch"
-          :class="{
-            RandomRecipes: true,
-            blur: !$root.store.username,
-            center: true}"
-          disabled>
-        </RecipePreviewList>
-
-
-
-
-    
-
-    <!-- <div
-      style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
-    >
-      Centeredasdasdad
-    </div>-->
   </div>
 </template>
 
@@ -60,58 +29,45 @@ export default {
 </script>
 
 
-
-
-
-
-
-
-
-
-
 <style lang="scss" scoped>
+
 .RandomRecipes {
   margin: 10px 0 10px;
 }
+
 .blur {
-  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
+  -webkit-filter: blur(5px);
   filter: blur(2px);
 }
+
 ::v-deep .blur .recipe-preview {
   pointer-events: none;
   cursor: default;
 }
 
+#left{
+  float: left;
+  width: 350px;
+}
 
+#right{
+  float: right;
+  width: 350px;
+}
 
-// /* Split the screen in half */
-// .split {
-//   height: 100%;
-//   width: 50%;
-//   position:absolute;
-//   z-index: 1;
-//   top: 0;
-//   overflow-x: hidden;
-//   padding-top: 20px;
-// }
-
-// /* Control the left side */
-// .left {
-//   left: 0;
-// }
-
-// /* Control the right side */
-// .right {
-//   right: 0;
-// }
-
-// /* If you want the content centered horizontally and vertically */
-// .centered {
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   text-align: center;
-// }
+#ref-Login{
+  font-family: cursive;
+    background: #f3c86d;
+    box-shadow: 0 0 20px 9px #f147041f;
+    color: rgb(7, 7, 6);
+    padding: 5px;
+    margin: 10px;
+    transition: .5s;
+    font-size: 18px;
+    border: 0;
+    border-radius: 10px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
 
 </style>

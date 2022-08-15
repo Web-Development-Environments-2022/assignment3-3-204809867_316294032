@@ -1,7 +1,8 @@
 <template>
   <div class="container">
+    
+    <b-form id="form" @submit.prevent="onLogin">
     <h1 class="title">Login</h1>
-    <b-form @submit.prevent="onLogin">
       <b-form-group id="input-group-Username" label-cols-sm="3" label="Username:" label-for="Username">
         <b-form-input id="Username" v-model="$v.form.username.$model" type="text" :state="validateState('username')">
         </b-form-input>
@@ -29,14 +30,8 @@
       Login failed: {{ form.submitError }}
     </b-alert>
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <RecipePreviewList  title="Explore those recipes" call_type="random" class="RandomRecipes center" />
-    <!-- <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}</pre>
-    </b-card> -->
+
+    <RecipePreviewList id="RandomRecipes" title="" call_type="random" class="RandomRecipes center" />
   </div>
 </template>
 
@@ -73,21 +68,14 @@ export default {
       try {
 
         const response = await this.axios.post(
-          // "https://test-for-3-2.herokuapp.com/user/Login",
-          // "http://132.72.65.211:80/Login",
-          // "http://132.73.84.100:80/Login",
           this.$root.store.server_domain + "/Login",
-          //'/Login',
-
           {
             username: this.form.username,
             password: this.form.password
           }
-          ,{withCredentials: true, credentials: 'include'}
+          ,{withCredentials: true}
         );
         console.log(response);
-        this.$root.loggedIn = true; // I fix it
-        console.log(this.$root.store.login);
         this.$root.store.login(this.form.username);
         this.$router.push("/");
       } catch (err) {
@@ -96,14 +84,11 @@ export default {
       }
     },
     onLogin() {
-      // console.log("login method called");
       this.form.submitError = undefined;
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
       }
-      // console.log("login method go");
-
       this.Login();
     }
   },
@@ -113,7 +98,25 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-// .container {
-//   max-width: 400px;
-// }
+
+
+#RandomRecipes{
+  float:left;
+  width: 400px;
+  margin: 10px 0 10px;
+  padding: 5px 30px;
+
+
+}
+
+#form{
+    text-align: center;
+    float: right;
+    width: 400px;
+    height: 270px;
+    margin: 3% 5%;
+    opacity: 0.8;
+    margin: 11% 5%;
+}
+
 </style>

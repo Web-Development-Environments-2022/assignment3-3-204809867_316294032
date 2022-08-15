@@ -10,9 +10,11 @@
         <div class="wrapper">
           <div class="wrapped">
             <div class="mb-3">
-              <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Likes: {{ recipe.popularity }} likes</div>
-              <!-- this in the page of recipe -->
+              <div><img id="time-icon" src="../assets/logo/time-icon.png">
+              Ready in {{ recipe.readyInMinutes }} minutes</div>
+              <div>
+                <img id="like-icon" src="../assets/logo/like.png">
+                Likes: {{ recipe.popularity }} likes</div>
             </div>
             Ingredients:
             <ul>
@@ -30,19 +32,10 @@
               </li>
             </ol>
           </div>
-          <!-- <div v-if="flagiflagInLastSeen">
-            <h8>This recipee is in the last seen list !!</h8>
-          </div>
-          <div v-if="flagiflagInFavorite">
-            <h8>This recipee is in the favorite list !!</h8>
-          </div> -->
+
         </div>
       </div>
-      <!-- <pre>
-      {{ $route.params }}
-      {{ recipe }}
-    </pre
-      > -->
+
     </div>
   </div>
 </template>
@@ -63,12 +56,10 @@ export default {
     async created() {
         try {
             let response;
-            // response = this.$route.params.response;
-            //console.log(this.$route.params.recipeId)
             try {
                 let num = this.$route.params.recipeId;
                 let text = num.toString();
-                response = await this.axios.get(this.$root.store.server_domain + "/recipes/" + text, { withCredentials: true, credentials: "include" }
+                response = await this.axios.get(this.$root.store.server_domain + "/recipes/" + text, { withCredentials: true}
                 //"http://localhost:3000/recipes/" + text,{withCredentials: true, credentials: 'include'}
                 );
                 if (response.status !== 200)
@@ -106,7 +97,6 @@ export default {
             console.log(typeof(_recipe.analyzedInstructions))
             console.log(typeof(_recipe.extendedIngredients))
 
-            //console.log(_recipe);
             this.recipe = _recipe;
             this.isFavorite = _recipe.flagInFavorite;
             this.isLastseen = _recipe.flagInLastSeen;
@@ -116,12 +106,9 @@ export default {
             //update the last seen recipe
             if (this.$root.store.username) {
                 try {
-                    //console.log("IM IN THE IF");
                     const response = await this.axios.post(this.$root.store.server_domain + "/users/lastSeenRecipe", {
                         recipeId: this.$route.params.recipeId
-                    }, { withCredentials: true, credentials: "include" });
-                    //console.log("IM IN THE IF AFTER THE RESPONSE");
-                    //console.log(response);
+                    }, { withCredentials: true });
                 }
                 catch (err) {
                     console.log("error.response.status", error.response.status);
@@ -151,7 +138,25 @@ export default {
   width: 50%;
 }
 
-/* .recipe-header{
 
-} */
+#time-icon{
+  width: 23px;
+  height: 23px;
+	margin-bottom: 3px;
+	margin-top: -1px;
+
+}
+
+#like-icon{
+  width: 22px;
+  height: 22px;
+	margin-top: -9px;
+}
+
+.recipe-body{
+  border-style: double;
+  border-width: 5px 9px; 
+  padding: 10px;
+}
+
 </style>

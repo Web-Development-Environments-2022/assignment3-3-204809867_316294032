@@ -62,13 +62,6 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
-
-
-
-      
-
-      
-
       <b-form-group
         id="input-group-country"
         label-cols-sm="3"
@@ -106,8 +99,7 @@
           For that, your password should be also:
         </b-form-text>
         <b-form-invalid-feedback
-          v-if="$v.form.password.required && !$v.form.password.length"
-        >
+          v-if="$v.form.password.required && !$v.form.password.length" >
           Have length between 5-10 characters long
         </b-form-invalid-feedback>
       </b-form-group>
@@ -128,14 +120,10 @@
           Password confirmation is required
         </b-form-invalid-feedback>
         <b-form-invalid-feedback
-          v-else-if="!$v.form.confirmedPassword.sameAsPassword"
-        >
+          v-else-if="!$v.form.confirmedPassword.sameAsPassword">
           The confirmed password is not equal to the original password
         </b-form-invalid-feedback>
       </b-form-group>
-
-
-
 
       <b-form-group
         id="input-group-email"

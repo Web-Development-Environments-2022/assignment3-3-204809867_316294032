@@ -12,7 +12,6 @@
             <div class="mb-3">
               <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
               <div>Likes: {{ recipe.popularity }} likes</div>
-              <!-- this in the page of recipe -->
             </div>
             Ingredients:
             <br>
@@ -23,19 +22,9 @@
             <br>
             {{recipe.Instructions}}
           </div>
-          <!-- <div v-if="flagiflagInLastSeen">
-            <h8>This recipee is in the last seen list !!</h8>
-          </div           https://www.sqlshack.com/sql-queries-to-change-the-column-type/                >
-          <div v-if="flagiflagInFavorite">
-            <h8>This recipee is in the favorite list !!</h8>
-          </div> -->
+
         </div>
       </div>
-      <!-- <pre>
-      {{ $route.params }}
-      {{ recipe }}
-    </pre
-      > -->
     </div>
   </div>
 </template>
@@ -56,13 +45,11 @@ export default {
     async created() {
         try {
             let response;
-            // response = this.$route.params.response;
-            //console.log(this.$route.params.recipeId)
             try {
                 let num = this.$route.params.recipeId;
                 let text = num.toString();
-                response = await this.axios.get(this.$root.store.server_domain + "/users/myrecipe/" + text, { withCredentials: true, credentials: "include" }
-                //"http://localhost:3000/recipes/" + text,{withCredentials: true, credentials: 'include'}
+                response = await this.axios.get(this.$root.store.server_domain + "/users/myrecipe/" + text, { withCredentials: true}
+                //"http://localhost:3000/recipes/" + text,{withCredentials: true}
                 );
                 if (response.status !== 200)
                     this.$router.replace("/NotFound");
@@ -74,12 +61,6 @@ export default {
             }
             let {title,readyInMinutes,image,popularity,vegan,vegetarian,glutenFree,servings,Instructions,IngredientsList} = response.data[0];
             console.log(response.data[0]);
-            // let _instructions = analyzedInstructions
-            //     .map((fstep) => {
-            //     fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-            //     return fstep.steps;
-            // })
-            //     .reduce((a, b) => [...a, ...b], []);
             let _recipe = {title,readyInMinutes,image,popularity,vegan,vegetarian,glutenFree,servings,Instructions,IngredientsList};
             console.log(_recipe);
             this.recipe = _recipe;
@@ -88,20 +69,6 @@ export default {
             this.isVegan = _recipe.vegan;
             this.isVegetarian = _recipe.vegetarian;
             this.isGlutenfree = _recipe.glutenFree;
-            //update the last seen recipe
-            // if (this.$root.store.username) {
-            //     try {
-            //         //console.log("IM IN THE IF");
-            //         const response = await this.axios.post(this.$root.store.server_domain + "/users/lastSeenRecipe", {
-            //             recipeId: this.$route.params.recipeId
-            //         }, { withCredentials: true, credentials: "include" });
-            //         //console.log("IM IN THE IF AFTER THE RESPONSE");
-            //         //console.log(response);
-            //     }
-            //     catch (err) {
-            //         console.log("error.response.status", error.response.status);
-            //     }
-            // }
         }
         catch (error) {
             console.log(error);
@@ -126,7 +93,4 @@ export default {
   width: 50%;
 }
 
-/* .recipe-header{
-
-} */
 </style>

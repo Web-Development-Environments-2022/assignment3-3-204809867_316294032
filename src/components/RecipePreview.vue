@@ -1,8 +1,8 @@
 <template>
   <router-link
     :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
-    class="recipe-preview"
-  >
+    class="recipe-preview">
+
     <div class="recipe-body">
       <img v-if="image_load" :src="recipe.image" class="recipe-image" />
     </div>
@@ -11,24 +11,42 @@
         {{ recipe.title }}
       </div>
       <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.popularity }} likes</li>
+        
+        <li>
+          <img id="time-icon" src="../assets/logo/time-icon.png">
+          {{ recipe.readyInMinutes }} minutes</li>
+        
+        <li>{{ recipe.popularity }} <img id="like-icon" src="../assets/logo/like.png"></li>
         <li>{{recipe.servings}} servings</li>
         <!-- this in the main page! -->
       </ul>
       <ul class="recipe-overview">
+        <!-- Vegan -->
+        <li v-if="recipe.vegan">
+        <!-- Vegan -->
+          <img id="vegan-icon" src="../assets/logo/vegan.png">
+        </li>
         
-        <li v-if="recipe.vegan">Vegan</li>
-        
-        <li v-if="recipe.vegetarian">Vegetarian</li>
-        
-        <li v-if="recipe.glutenFree">Gluten-Free</li>
+        <!-- Vegetarian -->
+        <li v-if="recipe.vegetarian">
+        <!-- Vegetarian -->
+          <img id="vegetarian-icon" src="../assets/logo/vegetarian.png">
+        </li>
+
+        <!-- Gluten-Free -->
+        <li v-if="recipe.glutenFree">
+        <!-- Gluten-Free -->
+          <img id="glutenFree-icon" src="../assets/logo/gluten-free.png">
+        </li>
 
       </ul>
+      <br/>
       <ul class="recipe-overview">
-        
-        <li v-if="recipe.flagInFavorite" >Favorite</li>
-        <li v-if="recipe.flagInLastSeen" >Last-Seen</li>
+        <li v-if="recipe.flagInFavorite" >
+          <img id="favorite-icon" src="../assets/logo/Favorite.jpg">
+          In Favorite
+        </li>
+        <li v-if="recipe.flagInLastSeen" ><br/>Last-Seen</li>
 
       </ul>     
       <!-- <div v-if="recipe.flagInLastSeen">
@@ -103,77 +121,85 @@ export default {
 
 <style scoped>
 .recipe-preview {
-  display: inline-block;
   width: 90%;
   height: 100%;
-  position: relative;
-  margin: 10px 10px;
+  padding-bottom: 10px;
+  margin-bottom: 1px;
+  border-radius: 5px;
+
 }
 .recipe-preview > .recipe-body {
-  width: 100%;
   height: 200px;
-  position: relative;
-}
+  margin-top: 22px;
+
+} 
 
 .recipe-preview .recipe-body .recipe-image {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-  display: block;
   width: 98%;
-  height: auto;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
+
 }
 
-.recipe-preview .recipe-footer {
-  width: 100%;
-  height: 50%;
-  overflow: hidden;
+.recipe-title {
+  padding: 0px 5px;
+  text-align: center;
+  font-weight: bold;
+
 }
 
-.recipe-preview .recipe-footer .recipe-title {
-  padding: 10px 10px;
-  width: 100%;
-  font-size: 12pt;
-  text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-}
-
-.recipe-preview .recipe-footer ul.recipe-overview {
+ul.recipe-overview { 
   padding: 5px 10px;
-  width: 100%;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -o-box-flex: 1;
-  box-flex: 1;
-  -webkit-flex: 1 auto;
-  -ms-flex: 1 auto;
-  flex: 1 auto;
-  table-layout: fixed;
   margin-bottom: 0px;
 }
 
-.recipe-preview .recipe-footer ul.recipe-overview li {
-  -webkit-box-flex: 1;
-  -moz-box-flex: 1;
-  -o-box-flex: 1;
-  -ms-box-flex: 1;
-  box-flex: 1;
-  -webkit-flex-grow: 1;
+ul.recipe-overview li {
   flex-grow: 1;
-  width: 90px;
   display: table-cell;
   text-align: center;
+  background-color: white;
+  height: 30px;
+  font-size: 15px;
+  color: #0e0c0c;
+  border-radius: 0.9vw;
+  padding: 2px 0px;
+  margin: 0px 3px;
+
 }
+
+#time-icon{
+  width: 23px;
+  height: 24px;
+	margin-top: -5px;
+                  
+}
+
+#glutenFree-icon{
+    width: 45px;
+  height: 45px;
+	margin-top: -9px;
+}
+
+#vegan-icon {
+    width: 45px;
+  height: 45px;
+	margin-top: -9px;
+}
+#vegetarian-icon{
+    width: 45px;
+  height: 45px;
+	margin-top: -9px;
+}
+
+#like-icon{
+      width: 22px;
+  height: 22px;
+	margin-top: -9px;
+}
+
+#favorite-icon{
+   width: 23px;
+  height: 14px;
+	margin-top: -5px;
+}
+ 
 </style>

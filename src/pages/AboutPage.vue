@@ -12,16 +12,17 @@
               width: 100%;
               background-position: center;
               background-size: cover;
+
               display: flex;
               justify-content: center;
               padding-bottom: 20px;
               padding-top: 10px;
               text-align: center;
             " >ABOUT US</span>
-    <br>
           <center>
 				<img id="dar_ido" src="../assets/Dar-Ido2.jpeg" style="width: 250px;
-			height: 350px;
+			height: 380px;
+      width: 240px;
 			margin-bottom: -40px;
 			margin-top: 5px;" />
 			</center>
@@ -63,17 +64,6 @@
 
     <a href="https://web-development-environments-2021.github.io/assignment1-204809867/">Personal page of David Ben-Gurion (Ido)</a>
   </center>
-    <!-- <br>
-    <br>
-    <br>
-    <br>
-    <span style="
-              text-align: center;
-              font-size: 25px;
-              letter-spacing: 7px;
-              font-family: system-ui;
-            "> US</span> -->
-
 <br>
 
     <footer>
@@ -132,7 +122,6 @@
 
 
   </div>
-  
 
 </template>
 
@@ -142,8 +131,10 @@
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css);
 
 /* over on social-icons  */
+
 .container{
-  background-color: rgb(226, 226, 150);
+   background-color: rgb(226, 226, 150);
+  
 
 }
 
@@ -247,7 +238,6 @@ ul.social-icons {
     justify-content: center;
     align-items: center;
     height: 73px;
-    border-top: 3px solid rgb(219, 157, 75);
     padding: 80px ;
     font-size: 15px;
     color: #f79839;

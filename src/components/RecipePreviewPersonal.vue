@@ -18,12 +18,6 @@
         
         <li>{{recipe.servings}} servings</li>
         
-        <!-- <li>Is Vegan ?{{recipe.vegan}}</li>
-        
-        <li>Is Vegetarian ?{{recipe.Vegetarian}}</li>
-        
-        <li>Is glutenFree ?{{recipe.glutenFree}}</li> -->
-
       </ul>
 
       <ul class="recipe-overview">
@@ -37,14 +31,11 @@
       </ul>
     </div>
     
-    <!-- <iconBar class="iconbar" :isFavorite="isFavorite" :isLastseen="isLastseen" :isVegetarian="isVegetarian" :isVegan="isVegan" :isGlutenfree="isGlutenfree" ></iconBar> -->
 
   </router-link>
 </template>
 
 <script>
-// import iconBar from './iconBar.vue';
-
 export default {
   mounted() {
     this.axios.get(this.recipe.image).then((i) => {
@@ -97,7 +88,7 @@ export default {
     //   }
     // }
   },
-  // components: { iconBar }
+
 
 };
 </script>
@@ -132,7 +123,6 @@ export default {
 .recipe-preview .recipe-footer {
   width: 100%;
   height: 50%;
-  overflow: hidden;
 }
 
 .recipe-preview .recipe-footer .recipe-title {

@@ -1,13 +1,12 @@
 <template>
   <div class="container">
     <h1 class="title">Personal recipe:</h1>
-    <!-- <div>THIS IS A MODAL FOR ADDING PERSONAL RECIPES</div> -->
-    <!-- <button @click="showModal = true">Save</button> -->
-    
-    
+
     <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this page</router-link>
     <!-- {{ !$root.store.username }} this is false whan we longged in -->
-    <b-button v-b-modal.mymodal>create recipe</b-button>
+
+    <!-- button : create recipe '+' -->
+    <b-button v-b-modal.mymodal>+ create recipe</b-button> 
     <b-modal modal-class="my-class" id="mymodal" ref="modal" title="create recipe" size="xl">
         <div>
             <b-form @submit="onSubmit" @reset="onReset" v-if="show">
@@ -67,16 +66,13 @@
             <b-button type="submit" variant="primary">Submit</b-button>
             <b-button type="reset" variant="danger">Reset</b-button>
             </b-form>
-            <!-- <b-card class="mt-3" header="Form Data Result">
-            <pre class="m-0">{{ form }}</pre>
-            </b-card> -->
+
          </div>
         </b-modal>
     <div v-if="flagResponse">
       <PersonalResults title="Results" :results="results"></PersonalResults>
     </div>
 
-    <!-- <CreateRecipeModal v-show="showModal" @close-modal="showModal = false" /> -->
 
 
   </div>
@@ -150,8 +146,7 @@ export default {
     //if the user is connected
     if (this.$root.store.username) {
         try {
-            //console.log("IM IN THE IF");
-            const response = await this.axios.get(this.$root.store.server_domain + "/users/myrecipe", { withCredentials: true, credentials: "include" });
+            const response = await this.axios.get(this.$root.store.server_domain + "/users/myrecipe", { withCredentials: true,});
             this.results = response.data
             this.flagResponse = true
         }
@@ -166,8 +161,6 @@ export default {
           try {
             const response = await this.axios.post(this.$root.store.server_domain + "/users/myrecipe",
             {
-              // withCredentials: true,
-              // credentials: "include",
               title: this.form.title,
               readyInMinutes: this.form.readyInMinutes,
               image: this.form.image,
@@ -178,7 +171,7 @@ export default {
               servings:this.form.servings,
               Instructions: this.form.Instructions,
               IngredientsList: this.form.IngredientsList,
-            },{ withCredentials: true, credentials: "include" }
+            },{ withCredentials: true }
 
             );
             console.log(response);
@@ -193,7 +186,6 @@ export default {
         event.preventDefault()
         console.log(this.form)
         this.createMyNewRecipe()
-        //alert(JSON.stringify(this.form))
       },
       onReset(event) {
         event.preventDefault()

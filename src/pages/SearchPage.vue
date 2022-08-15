@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <h1 class="title">Search</h1>
+
     <b-form @submit.prevent="onSearching">
-      <!-- label = Search: -->
       <b-form-group id="input-group-Search" label="" label-for="Search">
         <b-form-input id="Search" style="width:450px" v-model="$v.form.searchQuery.$model" type="text"
           :state="validateState('searchQuery')" placeholder="Search recipes..."></b-form-input>
@@ -14,8 +14,7 @@
       </b-form-group>
 
       <div id="filtering" style="display:flex">
-      <!-- <div id="filtering"> -->
-        <b-form-group id="input-group-cuisine" label="cuisine:" label-for="cuisine">
+\        <b-form-group id="input-group-cuisine" label="cuisine:" label-for="cuisine">
           <b-form-select id="cuisine" v-model="form.cuisine" :options="cuisines" style="width:auto"></b-form-select>
         </b-form-group>
         <b-form-group id="input-group-diet" label="diet:" label-for="diet">
@@ -27,39 +26,36 @@
         </b-form-group>
       </div>
 
-      <div id="selected" class ="selected">
-      <b-form-group label="" v-slot="{ ariaDescribedby }">
-        <b-form-radio class ="selected" v-model="form.numberRecipes" name="some-radios"
-          value="5">5</b-form-radio>
-          
-        <b-form-radio class ="selected" v-model="form.numberRecipes" :aria-describedby="ariaDescribedby" name="some-radios" value="10">10
-        </b-form-radio>
-        <b-form-radio class ="selected" v-model="form.numberRecipes" :aria-describedby="ariaDescribedby" name="some-radios" value="15">15
-        </b-form-radio>
-        <b-form-text> You can choose how many results would you like to be returned. Note!
-        default is 5. </b-form-text></b-form-group>
-     </div>
-      
- 
+      <div id="selected" class="selected">
+        <b-form-group label="" v-slot="{ ariaDescribedby }">
+          <b-form-radio class="selected" v-model="form.numberRecipes" name="some-radios" value="5">5</b-form-radio>
+
+          <b-form-radio class="selected" v-model="form.numberRecipes" :aria-describedby="ariaDescribedby"
+            name="some-radios" value="10">10
+          </b-form-radio>
+          <b-form-radio class="selected" v-model="form.numberRecipes" :aria-describedby="ariaDescribedby"
+            name="some-radios" value="15">15
+          </b-form-radio>
+          <b-form-text> You can choose how many results would you like to be returned. Note!
+            The default is 5. </b-form-text>
+        </b-form-group>
+      </div>
+
       <br>
       <b-form-group id="input-group-sortBy" class="sortBy" label="sort by:" label-for="sortBy">
-        <b-form-select id="sortBy" class="sortBy" v-model="form.sortBy" :options="sortByOptions" style="width:auto"></b-form-select>
+        <b-form-select id="sortBy" class="sortBy" v-model="form.sortBy" :options="sortByOptions" style="width:auto">
+        </b-form-select>
       </b-form-group>
 
       <br>
       <b-button type="submit" variant="primary" style="width:100px;display:block;" class="mx-auto w-100">search
       </b-button>
-
+<br/>
     </b-form>
 
-
-    <!-- <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}</pre>
-    </b-card> -->
-
-    <div v-if="flag">
-      <b-alert v-if="results.length == 0" dismissible show> no results found for: {{ $v.form.searchQuery.$model }}
-      </b-alert>
+  <!--when click on Search the flag replace to true  -->
+    <div v-if="flag"> 
+      <b-alert v-if="results.length == 0" dismissible show> no results found for: {{ $v.form.searchQuery.$model }}</b-alert>
       <!-- go to SearchResults component: -->
       <SearchResults v-else :keyID="keyID" title="Results" :results="results"></SearchResults>
     </div>
@@ -85,11 +81,12 @@ export default {
         cuisine: "",
         diet: "",
         Intolerances: "",
-        submitError: undefined, //check if need it.
         sortBy: "",
+        
+
       },
       results: [],
-      last_search: "",
+      last_search: "", 
       cuisines: [{ value: "", text: "None" }],
       diets: [{ value: "", text: "None" }],
       Intolerances: [{ value: "", text: "None" }],
@@ -109,15 +106,16 @@ export default {
       }
     }
   },
-  mounted() {
-    // console.log("mounted");
+
+  mounted(){
+    console.log("in mounted");
     this.cuisines.push(...cuisines);
     this.diets.push(...diets);
     this.Intolerances.push(...Intolerances);
     
-    //console.log($v);
   },
-  created(){
+  created() {
+    console.log("in created");
     this.getMyLastSearch();
   },
   methods: {
@@ -132,7 +130,7 @@ export default {
         console.log(this.$root.store.server_domain + myQuery)
         const response = await this.axios.get(
           //http://localhost:3000/recipes/search?query=pizza
-          this.$root.store.server_domain + myQuery, { withCredentials: true, credentials: "include" });
+          this.$root.store.server_domain + myQuery, { withCredentials: true});
 
         const recipes = response.data; //results
         this.results = [];
@@ -150,7 +148,7 @@ export default {
             this.sortByPreparation();
             break;
           default: //None
-            console.log("None - return like it is");
+            console.log("None filtering - return like it is");
             break;
         }
 
@@ -201,21 +199,32 @@ export default {
       });
 
     },
-    async getMyLastSearch(){
+    async getMyLastSearch() {
       try {
-        if(this.$root.store.username){
-          const response = await this.axios.get(
-          this.$root.store.server_domain + "/users/lastSearch", { withCredentials: true, credentials: "include" });
+        if (this.$root.store.username) { //this will prevent error 401 - because some user has to be logged !!
 
-        console.log(this.last_search);
-        this.last_search = response.data; 
-        console.log(this.last_search);
-        }
+            const response = await this.axios.get(
+              this.$root.store.server_domain + "/users/lastSearch", { withCredentials: true});
+
+            console.log("this is the response");
+            console.log(response);
+
+            console.log("before get lastSearch from the server:");
+            console.log(this.last_search);
+            console.log("After -> the response = lastSearch:");
+            console.log(response);
+
+            //update the last_search of the conacted user ! 
+            this.last_search = response.data;
+
+          }
+        
 
       } catch (error) {
         console.log("error.response.status", error.response.status);
+        this.last_search ="";
       }
-     },
+    },
 
     onReset() {
       this.form = {
@@ -235,12 +244,13 @@ export default {
   max-width: 400px;
   font-family: system-ui;
 }
-.selected{
+
+.selected {
   display: inline-block;
   margin-right: 30px;
 }
 
-.sortBy{
+.sortBy {
   display: inline-block;
 }
 </style>

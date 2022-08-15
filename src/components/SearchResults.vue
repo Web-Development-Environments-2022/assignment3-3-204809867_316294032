@@ -2,7 +2,6 @@
   <b-container>
     <h3>
       {{ title }}:
-      <!-- {{ results }}: -->
       <slot></slot>
     </h3>
     <b-col>
@@ -51,7 +50,6 @@ export default {
     async showRecipesResults() {
       try {
         const recipes = this.results;
-        //console.log(recipes);
         this.recipes = [];
         this.recipes.push(...recipes);
         
