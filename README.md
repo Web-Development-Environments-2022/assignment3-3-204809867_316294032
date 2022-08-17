@@ -31,6 +31,6 @@ For the Backend of this project [please click on this link](https://github.com/W
 
 ![image](https://user-images.githubusercontent.com/66033664/185209162-dd06db1a-9dd6-451c-aa9f-265f58568527.png)
 
-![image](https://user-images.githubusercontent.com/66033664/185209303-607ab3e6-5387-4d25-a9dc-18a8c50a33b4.png)
+![image](https://user-images.githubusercontent.com/66033664/185211308-3a8357e0-139f-4fb8-adaa-6ed4a0acfba8.png)
 
 
